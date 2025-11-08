@@ -17,10 +17,10 @@ public class InteractDoor : MonoBehaviour, IInteractable
     {
         if(IsOpen)
         {
-            return "Press [E] to <color=red>close</color> the door";
+            return $"Press {KeyCode.E} to <color=red>close</color> the door";
         }
 
-        return "Press [E] to <color=green>open</color> the door";
+        return $"Press {KeyCode.E} to <color=green>open</color> the door";
     }
 
     public void Interact()

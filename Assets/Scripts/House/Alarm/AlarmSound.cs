@@ -9,8 +9,7 @@ public class AlarmSound : MonoBehaviour
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AlarmTrigger _trigger;
 
-    private float _timeForIncrease = 5f;
-    private float _timeForReduction = 5f;
+    private float _timeForChangingVolume = 5f;
     private float _minVolume = 0f;
 
     private Coroutine _activeCoroutine = null;
@@ -49,13 +48,13 @@ public class AlarmSound : MonoBehaviour
     private void RequestFadeIn()
     {
         StopCurrentCoroutine();
-        _activeCoroutine = StartCoroutine(StartAlarm());
+        _activeCoroutine = StartCoroutine(ChangerSoundVolume(_maxVolume));
     }
 
     private void RequestFadeOut()
     {
         StopCurrentCoroutine();
-        _activeCoroutine = StartCoroutine(StopAlarm());
+        _activeCoroutine = StartCoroutine(ChangerSoundVolume(_minVolume));
     }
 
     private void StopCurrentCoroutine()
@@ -67,7 +66,7 @@ public class AlarmSound : MonoBehaviour
         }
     }
 
-    private IEnumerator StartAlarm()
+    private IEnumerator ChangerSoundVolume(float targetVolume)
     {
         float startVolume = _audioSource.volume;
         float elapsedTime = 0f;
@@ -78,31 +77,12 @@ public class AlarmSound : MonoBehaviour
             _audioSource.Play();
         }
 
-        while (elapsedTime < _timeForIncrease)
+        while (elapsedTime < _timeForChangingVolume)
         {
             elapsedTime += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsedTime / _timeForIncrease);
-            _audioSource.volume = Mathf.Lerp(startVolume, _maxVolume, t);
+            float t = Mathf.Clamp01(elapsedTime / _timeForChangingVolume);
+            _audioSource.volume = Mathf.Lerp(startVolume, targetVolume, t);
             yield return null;
         }
-
-        _audioSource.volume = _maxVolume;
-    }
-
-    private IEnumerator StopAlarm()
-    {
-        float startVolume = _audioSource.volume;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < _timeForReduction)
-        {
-            elapsedTime += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsedTime / _timeForReduction);
-            _audioSource.volume = Mathf.Lerp(startVolume, _minVolume, t);
-            yield return null;
-        }
-
-        _audioSource.volume = _minVolume;
-        _audioSource.Stop();
     }
 }

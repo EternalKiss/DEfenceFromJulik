@@ -807,8 +807,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3e3a68feae03a647b58e98c8d4522e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AlarmSound
-  _targetVolume: 1
+  _maxVolume: 1
   _audioSource: {fileID: 658650708}
+  _trigger: {fileID: 1023398976}
 --- !u!82 &658650708
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1190,8 +1191,8 @@ Transform:
   m_GameObject: {fileID: 1023398973}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.031, z: 5.104}
-  m_LocalScale: {x: 1.2401, y: 2.0583, z: 0.16838}
+  m_LocalPosition: {x: -0.02, y: 1.031, z: 0.97}
+  m_LocalScale: {x: 8.598488, y: 2.1011834, z: 8.775301}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1630340674}
@@ -1245,7 +1246,6 @@ GameObject:
   - component: {fileID: 1057223781}
   - component: {fileID: 1057223786}
   - component: {fileID: 1057223787}
-  - component: {fileID: 1057223788}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Player
@@ -1401,23 +1401,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65264a38c012ab843a5bc76a26de018d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractItems
-  _mainPlayer: {fileID: 1057223788}
+  _mainCamera: {fileID: 330585545}
   _interactionUI: {fileID: 331048087}
   _interactionText: {fileID: 277527674}
   _interactionDistance: 10
---- !u!114 &1057223788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1057223780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a31b6fde66c54744c80449b153bc79b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Player
-  MainCamera: {fileID: 330585545}
 --- !u!1 &1081328062
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,7 +3,7 @@ using TMPro;
 
 public class InteractItems : MonoBehaviour
 {
-    [SerializeField] private Player _mainPlayer;
+    [SerializeField] private Camera _mainCamera;
     [SerializeField] private GameObject _interactionUI;
     [SerializeField] private TextMeshProUGUI _interactionText;
     [SerializeField] private float _interactionDistance;
@@ -17,25 +17,23 @@ public class InteractItems : MonoBehaviour
 
     private void InteractionRay()
     {
-        Ray ray = _mainPlayer.MainCamera.ViewportPointToRay(Vector3.one / _diviionForCenterOfScreen);
+        Ray ray = _mainCamera.ViewportPointToRay(Vector3.one / _diviionForCenterOfScreen);
         RaycastHit hit;
 
         bool isHitSomething = false;
 
         if(Physics.Raycast(ray, out hit, _interactionDistance))
         {
-            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
-
-            if(interactable != null )
+            if (hit.collider.TryGetComponent<IInteractable>(out var interactable))
             {
                 isHitSomething = true;
                 _interactionText.text = interactable.GetDescription();
 
-                if(Input.GetKeyDown(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.E))
                 {
                     interactable.Interact();
                 }
-            }    
+            }
         }
 
         _interactionUI.SetActive(isHitSomething);
