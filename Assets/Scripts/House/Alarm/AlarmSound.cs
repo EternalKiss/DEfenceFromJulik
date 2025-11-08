@@ -9,18 +9,20 @@ public class AlarmSound : MonoBehaviour
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AlarmTrigger _trigger;
 
-    private bool _isIncreasing = false;
-    private bool _isReducing = false;
     private float _timeForIncrease = 5f;
     private float _timeForReduction = 5f;
     private float _minVolume = 0f;
 
     private Coroutine _activeCoroutine = null;
 
-
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
+    }
+
+    private void Start()
+    {
+        _audioSource.volume = _minVolume;
     }
 
     private void OnEnable()
@@ -70,7 +72,6 @@ public class AlarmSound : MonoBehaviour
         float startVolume = _audioSource.volume;
         float elapsedTime = 0f;
 
-        // ¬ключаем звук, если ещЄ не играет
         if (!_audioSource.isPlaying)
         {
             _audioSource.loop = true;
